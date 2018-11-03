@@ -1,0 +1,23 @@
+{
+  "remotePath": "./",
+  "host": "35.231.226.165",
+  "username": "sj_jeannie_kim",
+  "port": 22,
+  "secure": false,
+  "protocol": "sftp",
+  "uploadOnSave": true,
+  "passive": false,
+  "debug": false,
+  "privateKeyPath": "/Users/pabloargueta/.ssh/startinGrounds",
+  "passphrase": null,
+  "ignore": [
+    "\\.vscode",
+    "\\.git",
+    "\\.DS_Store"
+  ],
+  "generatedFiles": {
+    "uploadOnSave": false,
+    "extensionsToInclude": [],
+    "path": ""
+  }
+}
