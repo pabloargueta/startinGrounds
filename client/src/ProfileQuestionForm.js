@@ -4,7 +4,7 @@ import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-
+console.log('here');
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
