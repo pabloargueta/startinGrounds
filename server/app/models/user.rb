@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-    has_many :profile_items
+    has_many :profile_answers
     has_many :preferences
 
     has_secure_password
@@ -8,17 +8,23 @@ class User < ApplicationRecord
     has_one_attached :avatar
     has_many_attached :images
 
+    accepts_nested_attributes_for :profile_answers
+    accepts_nested_attributes_for :preferences
+
     def matches
-        matches = User.all.map do | user |
+        matches = other_users.map do | user |
             {
                 score: self.match_score_for(user),
                 user: user
             }
         end
         sorted = matches.sort_by do | match |
-            match[:match_score]
+            match[:score]
         end
-        sorted.map(&:user)
+        byebug
+        sorted.map do | match |
+            match[:user]
+        end.reverse
     end
 
     def match_score_for(user)
@@ -30,6 +36,10 @@ class User < ApplicationRecord
             match_score += preference.difference(answer)
         end
         match_score
+    end
+
+    def other_users
+        User.where(' id != ?', self.id)
     end
 
 end

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
         resources :users do
           resources :matches
         end
+        resources :profile_questions
         post '/login', to: 'auth#create'
       end
   end

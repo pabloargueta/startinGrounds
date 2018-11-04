@@ -1,22 +1,33 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar'
-import Welcome from './Welcome'
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
+
 
 import { connect } from 'react-redux'
+import LogIn from './LogIn';
+import SignUp from './SignUp';
+import Profile from './Profile'
+import PrivateRoute from './PrivateRoute'
+import ProfileQuestionForm from './ProfileQuestionForm'
 
 
 class App extends Component {
 
-
-
-
   render() {
     return (
       <div>
-        <h2>Im app</h2>
-
         <NavBar />
-        <Welcome />
+        <Router>
+          <Switch>
+            <Route path="/login" component={LogIn} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/test" component={ProfileQuestionForm} />
+            <PrivateRoute path="/profile" component={Profile} />
+            <Route path="/" render={() => <Redirect to={{
+              pathname: '/profile'
+            }} />} />
+          </Switch>
+        </Router>
       </div>
     )
   }

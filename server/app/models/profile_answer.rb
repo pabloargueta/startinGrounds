@@ -1,7 +1,9 @@
 class ProfileAnswer < ApplicationRecord
     belongs_to :profile_question
-    belongs_to :answer_option
+    belongs_to :answer_option, optional: true
     belongs_to :user
-    alias :selection, :answer_option
 
+    def selection
+        self.answer_option
+    end
 end
