@@ -11,6 +11,7 @@ import PrivateRoute from './PrivateRoute';
 import GeneralTab from './SignUpTabs/GeneralTab.js';
 import Billing from './SignUpTabs/Billing.js';
 import ProfileTab from './SignUpTabs/ProfileTab.js';
+import PreferenceTab from './SignUpTabs/PreferenceTab.js';
 import Button from '@material-ui/core/Button';
 
 const styles = (theme) => ({
@@ -63,32 +64,7 @@ class SignUp extends Component {
             <Typography component="h1" variant="h5">
               Sign up
             </Typography>
-            <BrowserRouter>
-              <Switch>
-                <Route
-                  path={`${this.props.match.path}/1`}
-                  component={GeneralTab}
-                />
-                {/* <PrivateRoute
-                  path={`${this.props.match.path}/2`}
-                  component={Billing}
-                /> */}
-                <PrivateRoute
-                  path={`${this.props.match.path}/2`}
-                  component={ProfileTab}
-                />
-                <Route
-                  path="/"
-                  render={() => (
-                    <Redirect
-                      to={{
-                        pathname: `${this.props.match.path}/1`
-                      }}
-                    />
-                  )}
-                />
-              </Switch>
-            </BrowserRouter>
+            <GeneralTab />
           </Paper>
         </main>
       </div>

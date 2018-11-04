@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 class UpdateAvatarForm extends Component {
   addImage(e) {
     e.preventDefault();
-    // const data = new FormData(e.target);
+    const data = new FormData(e.target);
     // console.log(this)
     // debugger
-    // fetch('http://localhost:3000/profile', {
-    //   method: 'POST',
-    //   headers: {
-    //     Authorization: `Bearer ${this.props.token}`
-    //   },
-    //   body: data
-    // })
-    //   .then((resp) => resp.json())
-    //   .then((url) => this.props.setAvatarURL(url.image));
+    fetch('http://localhost:3000/api/v1/users/me', {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${this.props.token}`
+      },
+      body: data
+    })
+      .then((resp) => resp.json())
+      .then(data => console.log(data));
     this.props.handleClose();
   }
 

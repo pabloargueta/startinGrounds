@@ -128,21 +128,17 @@ class LogIn extends Component {
                 Log in
               </Button>
 
-              <Link
-                style={{ color: 'white', textDecoration: 'none' }}
-                to="/signup">
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  style={{
-                    background:
-                      'linear-gradient(45deg, #00bcd4 30%, #1a237e 90%)'
-                  }}>
-                  Not a user? Sign up now!
-                </Button>
-              </Link>
+              <Button
+                onClick={() => window.location = '/signup '}
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                style={{
+                  background: 'linear-gradient(45deg, #00bcd4 30%, #1a237e 90%)'
+                }}>
+                Not a user? Sign up now!
+              </Button>
               {/* #00bcd4 */}
             </form>
           </Paper>

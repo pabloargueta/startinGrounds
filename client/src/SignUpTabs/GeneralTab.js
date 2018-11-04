@@ -12,7 +12,10 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import TabNavigation from './TabNavigation.js';
-import { Link } from 'react-router-dom';
+import { withRouter, Link, Redirect } from 'react-router-dom';
+
+
+
 
 const styles = (theme) => ({
   layout: {
@@ -58,13 +61,14 @@ class GeneralTab extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+
+
   render() {
     const props = this.props;
     const { classes } = this.props;
     console.log(props);
     return (
       <React.Fragment>
-        <TabNavigation value={0} path={this.props.match.url} />
         <form className={classes.form}>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="username">Username</InputLabel>
@@ -106,6 +110,7 @@ class GeneralTab extends Component {
           <Button
             onClick={(e) => {
               e.preventDefault();
+
               this.props.signUp(this.state, this.props.history);
             }}
             type="submit"
@@ -116,20 +121,20 @@ class GeneralTab extends Component {
             Sign up
           </Button>
 
+
           <Button
-            onClick={(e) => {
-              e.preventDefault();
-              this.props.history.push('/login');
-            }}
+            onClick={() => window.location = '/login '}
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
             style={{
-              background: 'linear-gradient(45deg, #00bcd4 30%, #1a237e 90%)'
+              background:
+                'linear-gradient(45deg, #00bcd4 30%, #1a237e 90%)'
             }}>
             Log in instead
           </Button>
+
 
           {/* #00bcd4 */}
         </form>

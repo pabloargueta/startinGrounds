@@ -11,8 +11,12 @@ import { connect } from 'react-redux';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
 import Profile from './Profile';
+import EditProfile from './EditProfile';
+import EditPreferences from './EditPreferences';
 import PrivateRoute from './PrivateRoute';
 import Billing from './SignUpTabs/Billing';
+
+
 
 class App extends Component {
   render() {
@@ -25,6 +29,8 @@ class App extends Component {
             <Route path="/signup" component={SignUp} />
             <Route path="/test" component={Billing} />
             <PrivateRoute path="/profile" component={Profile} />
+            <PrivateRoute path="/edit-profile" component={EditProfile} />
+            <PrivateRoute path="/edit-preferences" component={EditPreferences} />
             <Route
               path="/"
               render={() => (

@@ -9,6 +9,9 @@ class Preference < ApplicationRecord
 
   def difference(answer)
     value = 0
+    if answer.selection == nil || self.selection == nil
+      return 0
+    end
     case answer.profile_question.type
     when "categorical"
       if answer.selection.value == self.selection.value

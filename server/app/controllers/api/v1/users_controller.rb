@@ -16,14 +16,29 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def show
-        user = User.find(params[:id])
-        render json:user
+        if params[:id] == 'me'
+            render json: current_user, include: [ :matches ]
+        else
+            user = User.find(params[:id])
+            render json:user, include: [ :matches ]
+        end
     end
 
     def update
-        user = User.find(params[:id])
-        user.update(user_params)
-        render json:user
+        if params[:id] == 'me'
+            current_user.update(user_params)
+            if params[:image]
+              current_user.avatar.attach(params[:image])
+            end
+            render json:user
+        else
+            user = User.find(params[:id])
+            user.update(user_params)
+            if params[:image]
+              user.avatar.attach(params[:image])
+            end
+            render json:user
+        end
     end
 
     def destroy
@@ -32,7 +47,16 @@ class Api::V1::UsersController < ApplicationController
         render json:user
     end
 
+     def attachImage
+      current_user.avatar.attach(params[:image])
+      render json: {image: url_for(current_user.avatar)}
+    end
+
+     def image_params
+      params.permit(:image)
+    end
+
     def user_params
-        params.permit(:username, :password, :first_name, :last_name, :email, :billing_id)
+        params.permit(:username, :password, :first_name, :last_name, :email, :billing_id, :image)
     end
 end

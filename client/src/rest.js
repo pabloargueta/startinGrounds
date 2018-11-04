@@ -1,6 +1,6 @@
-const BASE_URL = 'http://172.25.74.144:3000/api/v1';
+const BASE_URL = 'http://172.25.150.179:3000/api/v1';
 
-const serialize = function(obj) {
+const serialize = function (obj) {
   var str = [],
     p;
   for (p in obj) {

@@ -7,7 +7,10 @@ Rails.application.routes.draw do
           resources :matches
         end
         resources :profile_questions
+        resources :profile_answers
+        resources :preferences
         post '/login', to: 'auth#create'
+        #post '/image' to: 'users#attachImage'
       end
   end
 

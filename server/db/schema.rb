@@ -71,7 +71,8 @@ ActiveRecord::Schema.define(version: 2018_11_03_212613) do
   end
 
   create_table "profile_questions", force: :cascade do |t|
-    t.string "wording"
+    t.string "profile_wording"
+    t.string "preference_wording"
     t.string "question_type"
     t.boolean "editable"
     t.datetime "created_at", null: false

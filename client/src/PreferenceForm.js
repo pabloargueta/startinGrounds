@@ -15,35 +15,34 @@ import { withStyles } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
-class ProfileAnswerForm extends Component {
+class PreferenceForm extends Component {
   componentDidMount() {
-    this.props.fetchProfileAnswers();
+    this.props.fetchPreferences();
   }
 
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <h1>Profile</h1>
-        <form className={classes.form}>
-          {this.props.profileAnswers.map((profileAnswer) =>
-            this.renderAnswerField(profileAnswer)
+        <h1>Preferences</h1>
+        <form>
+          {this.props.preferences.map((preference) =>
+            this.renderPreference(preference)
           )}
         </form>
       </div>
     );
   }
 
-  renderAnswerField(profileAnswer) {
-    let profileQuestion = profileAnswer.profile_question;
-    console.log(profileQuestion)
+  renderPreference(preference) {
+    let profileQuestion = preference.profile_question;
     switch (profileQuestion.question_type) {
       case 'categorical':
       case 'ordinal':
         return (
           <FormControl component="fieldset" margin="normal" required fullWidth>
-            <FormLabel component="legend">{profileQuestion.profile_wording}</FormLabel>
-            <RadioGroup value={profileAnswer.answer_option_id} onChange={e => this.props.updateProfileAnswer({ ...profileAnswer, answer_option_id: parseInt(e.target.value) })}>
+            <FormLabel component="legend">{profileQuestion.preference_wording}</FormLabel>
+            <RadioGroup value={preference.answer_option_id} onChange={e => this.props.updatePreference({ ...preference, answer_option_id: parseInt(e.target.value) })}>
               {profileQuestion.answer_options.map((option) => (
                 <FormControlLabel
                   value={option.value}
@@ -63,21 +62,21 @@ class ProfileAnswerForm extends Component {
 
 function mapStateToProps(state) {
   return {
-    profileAnswers: state.profileAnswers
+    preferences: state.preferences
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchProfileAnswers: () => {
+    fetchPreferences: () => {
       dispatch({
-        type: 'FETCH_PROFILE_ANSWERS'
+        type: 'FETCH_PREFERENCES'
       });
     },
 
-    updateProfileAnswer: (item) => {
+    updatePreference: (item) => {
       dispatch({
-        type: 'UPDATE_PROFILE_ANSWER',
+        type: 'UPDATE_PREFERENCE',
         payload: item
       })
     }
@@ -121,5 +120,5 @@ export default withStyles(styles)(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(ProfileAnswerForm)
+  )(PreferenceForm)
 );

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+    include Rails.application.routes.url_helpers
+
     has_many :profile_answers
     has_many :preferences
 
@@ -18,12 +20,16 @@ class User < ApplicationRecord
                 importance: 1
             })
         end
-        
+
         ProfileQuestion.all.each do | question |
             user.profile_answers.new({
                 profile_question: question
             })
         end
+    end
+
+    def avatar_url
+        url_for(self.avatar)
     end
 
     def matches
