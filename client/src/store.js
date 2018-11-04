@@ -4,7 +4,7 @@ import { createStore } from 'redux';
 const defaultState = {
   token: localStorage.token || '',
   profileQuestions: [],
-  haveFetched: {}
+  signUpStep: localStorage.signUpStep || 1
 };
 
 function reducer(state = defaultState, action) {
@@ -13,15 +13,18 @@ function reducer(state = defaultState, action) {
     case 'SEARCH':
       return { ...state, state: 'YOUR STATE' };
 
-    case 'SIGNUP_USER':
+    case 'CREATE_USER':
       post('/users', action.payload).then((user) => {
-        console.log(user);
-        // store.dispatch({
-        //   type: '',
-        //   payload: user
-        // })
+        store.dispatch({
+          type: 'RECIEVE_USER',
+          payload: user
+        })
       });
       return state;
+
+    case 'RECIEVE_USER':
+      localStorage.setItem('signUpStep', 2)
+      return { ...state, user: action.payload.user, signUpStep: 2}
 
     case 'AUTHENTICATE_USER':
       post('/login', action.payload).then((auth) => {

@@ -11,6 +11,24 @@ class User < ApplicationRecord
     accepts_nested_attributes_for :profile_answers
     accepts_nested_attributes_for :preferences
 
+    before_create do | user |
+        if user.profile_answers_attributes.length == 0
+            user.profile_attributes = ProfileQuestion.all.map do | question |
+                {
+                    profile_question: question,
+                    importance: 1
+                }
+            end
+        end
+        if user.preferences_attributes.length == 0
+            user.preferences_attributes = ProfileQuestion.all.map do | question |
+                {
+                  profile_question: question
+                }
+              end
+        end
+    end
+
     def matches
         matches = other_users.map do | user |
             {
@@ -21,7 +39,6 @@ class User < ApplicationRecord
         sorted = matches.sort_by do | match |
             match[:score]
         end
-        byebug
         sorted.map do | match |
             match[:user]
         end.reverse

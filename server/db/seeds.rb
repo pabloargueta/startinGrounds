@@ -250,8 +250,9 @@ data =[
       end,
       profile_answers_attributes: ProfileQuestion.all.map do | question |
         {
-            profile_question: question,
-            answer_option: question.answer_options.first        }
+          profile_question: question,
+          answer_option: question.answer_options.first        
+        }
       end
   )
 
