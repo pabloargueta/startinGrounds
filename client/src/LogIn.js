@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 // import NavBar from './NavBar'
 // import SignUp from './SignUp'
 
-import { connect } from 'react-redux'
-import { Redirect, Link } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { Redirect, Link } from 'react-router-dom';
 // import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
@@ -19,7 +19,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-const styles = theme => ({
+const styles = (theme) => ({
   layout: {
     width: 'auto',
     display: 'block', // Fix IE 11 issue.
@@ -28,65 +28,78 @@ const styles = theme => ({
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
       width: 400,
       marginLeft: 'auto',
-      marginRight: 'auto',
-    },
+      marginRight: 'auto'
+    }
   },
   paper: {
     marginTop: theme.spacing.unit * 8,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
+      .spacing.unit * 3}px`
   },
   avatar: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit
     // backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing.unit
   },
   submit: {
-    marginTop: theme.spacing.unit * 3,
-  },
+    marginTop: theme.spacing.unit * 3
+  }
 });
 
 class LogIn extends Component {
-
   state = {
     username_or_email: '',
     password: ''
-  }
+  };
 
-
-  updateFormField = e => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
-
+  updateFormField = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   render() {
-    const props = this.props
+    const props = this.props;
     const { classes } = props;
-    if (props.token) return (
-      <Redirect to={{
-        pathname: '/profile'
-      }} />
-    )
+    if (props.token)
+      return (
+        <Redirect
+          to={{
+            pathname: '/profile'
+          }}
+        />
+      );
     return (
       <React.Fragment>
         <CssBaseline />
         <main className={classes.layout}>
           <Paper className={classes.paper}>
-            <Avatar className={classes.avatar} style={{ background: 'linear-gradient(45deg, #1a237e 30%, #00bcd4 90%)', }}>
+            <Avatar
+              className={classes.avatar}
+              style={{
+                background: 'linear-gradient(45deg, #1a237e 30%, #00bcd4 90%)'
+              }}>
               <LockIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Log in
             </Typography>
             <form className={classes.form}>
               <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="username_or_email">Username or Email</InputLabel>
-                <Input onChange={this.updateFormField} id="username_or_email" name="username_or_email" autoComplete="email" autoFocus />
+                <InputLabel htmlFor="username_or_email">
+                  Username or Email
+                </InputLabel>
+                <Input
+                  onChange={this.updateFormField}
+                  id="username_or_email"
+                  name="username_or_email"
+                  autoComplete="email"
+                  autoFocus
+                />
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -103,25 +116,32 @@ class LogIn extends Component {
                 label="Remember me"
               />
               <Button
-                onClick={e => {
-                  e.preventDefault()
-                  this.props.login(this.state)
+                onClick={(e) => {
+                  e.preventDefault();
+                  this.props.login(this.state);
                 }}
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
-                className={classes.submit}
-              >
-                Sign in
+                className={classes.submit}>
+                Log in
               </Button>
 
-              <Link style={{ color: 'white', textDecoration: 'none' }} to="/signup">
+              <Link
+                style={{ color: 'white', textDecoration: 'none' }}
+                to="/signup">
                 <Button
                   fullWidth
                   variant="contained"
                   color="primary"
-                  className={classes.submit} style={{ background: 'linear-gradient(45deg, #00bcd4 30%, #1a237e 90%)', }}>Sign up now!</Button>
+                  className={classes.submit}
+                  style={{
+                    background:
+                      'linear-gradient(45deg, #00bcd4 30%, #1a237e 90%)'
+                  }}>
+                  Not a user? Sign up now!
+                </Button>
               </Link>
               {/* #00bcd4 */}
             </form>
@@ -133,32 +153,32 @@ class LogIn extends Component {
 }
 
 LogIn.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     token: state.token
-  }
-}
+  };
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    login: user_attributes => {
+    login: (user_attributes) => {
       dispatch({
         type: 'AUTHENTICATE_USER',
         payload: user_attributes
-      })
+      });
     }
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(LogIn));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(LogIn));
 
 // class LogIn extends Component {
-
-
-
 
 //   render() {
 //     return (
@@ -169,7 +189,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(L
 //         <input name="password" type="password" placeholder="Password" />
 //         <input type="submit" className="LogInButton" placeholder="Login" />
 
-
 //         <div>
 //           <br />
 //           <button className="signUpButton">Sign up now!</button>
@@ -179,7 +198,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(L
 //     )
 //   }
 // }
-
 
 // // function mapStateToProps(state) {
 // //   return {
@@ -193,6 +211,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(L
 // //     updateProduct: (data) => dispatch({ type: "", payload: data })
 // //   }
 // // }
-
 
 // export default LogIn;
