@@ -48,8 +48,6 @@ const styles = theme => ({
 class SignUp extends Component {
 
 
-
-
   render() {
     const props = this.props
     const { classes } = this.props;
@@ -62,7 +60,9 @@ class SignUp extends Component {
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="username">Username</InputLabel>
             <Input onChange={this.updateFormField} id="username" name="username" autoComplete="" autoFocus />
+          </FormControl>
 
+          <FormControl>
             <InputLabel htmlFor="email">Email</InputLabel>
             <Input onChange={this.updateFormField} id="email" name="email" autoComplete="email" autoFocus />
           </FormControl>
@@ -77,6 +77,7 @@ class SignUp extends Component {
               autoComplete="current-password"
             />
           </FormControl>
+
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"

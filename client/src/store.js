@@ -41,6 +41,17 @@ function reducer(state = defaultState, action) {
     case 'LOGOUT_USER':
       localStorage.clear()
       return { ...state, token: '' }
+
+    case 'FETCH_PROFILE_QUESTIONS':
+      get('/profile_questions')
+        .then(profile_questions => {
+
+        })
+      return { ...state }
+
+    case 'RECIEVE_PROFILE_QUESTIONS':
+      return { ...state }
+
     default:
       return state
     // break;
