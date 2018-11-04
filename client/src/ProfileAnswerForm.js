@@ -22,19 +22,22 @@ class ProfileQuestionForm extends Component {
 
   render() {
     const { classes } = this.props;
+    console.log(this.props);
     return (
       <div>
         <h1>Profile Questions</h1>
         <form className={classes.form}>
-          {this.props.profileQuestions.map((profileQuestion) =>
-            this.renderQuestionField(profileQuestion)
+          {this.props.profileQuestions.map((profileAnswer) =>
+            this.renderQuestionField(profileAnswer)
           )}
         </form>
       </div>
     );
   }
 
-  renderQuestionField(profileQuestion) {
+  renderQuestionField(profileAnswer) {
+    console.log(profileAnswer);
+    let profileQuestion = profileAnswer.profile_question;
     switch (profileQuestion.question_type) {
       case 'categorical':
       case 'ordinal':

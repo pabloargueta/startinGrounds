@@ -10,9 +10,9 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core'
-import TabNavigation from './TabNavigation.js'
-import { Link } from 'react-router-dom'
+import { withStyles } from '@material-ui/core';
+import TabNavigation from './TabNavigation.js';
+import { Link } from 'react-router-dom';
 
 const styles = (theme) => ({
   layout: {
@@ -61,62 +61,79 @@ class GeneralTab extends Component {
   render() {
     const props = this.props;
     const { classes } = this.props;
-
+    console.log(props);
     return (
-        <React.Fragment>
-            <TabNavigation value={0} />
-            <form className={classes.form}>
-                <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="username">Username</InputLabel>
-                <Input
-                    onChange={this.updateFormField}
-                    id="username"
-                    name="username"
-                    autoComplete=""
-                    autoFocus
-                />
-                </FormControl>
+      <React.Fragment>
+        <TabNavigation value={0} path={this.props.match.url} />
+        <form className={classes.form}>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel htmlFor="username">Username</InputLabel>
+            <Input
+              onChange={this.updateFormField}
+              id="username"
+              name="username"
+              autoComplete=""
+              autoFocus
+            />
+          </FormControl>
 
-                <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="email">Email</InputLabel>
-                <Input
-                    onChange={this.updateFormField}
-                    id="email"
-                    name="email"
-                    autoComplete=""
-                />
-                </FormControl>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel htmlFor="email">Email</InputLabel>
+            <Input
+              onChange={this.updateFormField}
+              id="email"
+              name="email"
+              autoComplete=""
+            />
+          </FormControl>
 
-                <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="password">Password</InputLabel>
-                <Input
-                    onChange={this.updateFormField}
-                    name="password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                />
-                </FormControl>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <Input
+              onChange={this.updateFormField}
+              name="password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+          </FormControl>
 
-                {/* <FormControlLabel
+          {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
                 /> */}
-                <Button
-                onClick={(e) => {
-                    e.preventDefault();
-                    this.props.signUp(this.state);
-                }}
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}>
-                <Link to='/signup/2'>Sign up</Link>
-                </Button>
-                {/* #00bcd4 */}
-            </form>
-            </React.Fragment>
+
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              this.props.signUp(this.state, this.props.history);
+            }}
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}>
+            Sign up
+          </Button>
+
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              this.props.history.push('/login');
+            }}
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            style={{
+              background: 'linear-gradient(45deg, #00bcd4 30%, #1a237e 90%)'
+            }}>
+            Log in instead
+          </Button>
+
+          {/* #00bcd4 */}
+        </form>
+      </React.Fragment>
     );
   }
 }
@@ -127,7 +144,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    signUp: (user_attributes) => {
+    signUp: (user_attributes, history) => {
+      history.push('/signup/2');
       dispatch({
         type: 'CREATE_USER',
         payload: user_attributes

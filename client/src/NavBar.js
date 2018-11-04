@@ -1,5 +1,14 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+// import UpdateAvatarForm from './UpdateAvatarForm';
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  NavLink,
+  Link
+} from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -21,44 +30,42 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
+import Modal from '@material-ui/core/Modal';
 
+import Logo from './logo.png';
 
-
-import Logo from './logo.png'
-
-
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     // flexGrow: 1,
-    display: 'flex',
+    display: 'flex'
   },
   grow: {
-    flexGrow: 1,
+    flexGrow: 1
 
     // background: '#1a237e'
     // textAlign: 'center',
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20,
+    marginRight: 20
   },
   paper: {
-    marginRight: theme.spacing.unit * 2,
-  },
+    marginRight: theme.spacing.unit * 2
+  }
 });
 
 class Navbar extends Component {
-
-
   state = {
-    open: false,
+    profileOpen: false,
+    notificationsOpen: false,
+messagesOpen: false
   };
 
   handleToggle = (e) => {
-    this.setState(state => ({ open: !this.state.open }));
+    this.setState((state) => ({ open: !this.state.open }));
   };
 
-  handleClose = event => {
+  handleClose = (event) => {
     // if (this.anchorEl.contains(event.target)) {
     //   return;
     // }
@@ -67,78 +74,102 @@ class Navbar extends Component {
   };
 
   handleLogout = () => {
-    this.props.logout()
+    this.props.logout();
+  };
+  // from user messages "length + 1 "
+  messageAlert = () => {
+    3;
+  };
 
-  }
+  // from user notifications "length + 1 "
+  notificationAlert = () => {
+    return 3;
+  };
 
   render() {
-
     const { classes } = this.props;
 
-    const { open } = this.state
+    const { open } = this.state;
 
     return (
-
-
       <AppBar position="static">
-        <Toolbar style={{ background: 'linear-gradient(45deg, #1a237e 30%, #00bcd4 90%)', }}>
+        <Toolbar
+          style={{
+            background: 'linear-gradient(45deg, #1a237e 30%, #00bcd4 90%)'
+          }}>
           {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton> */}
           <Typography className={classes.grow}>
-            <img className={classes.headerImage} src={Logo} />
+            <Link to="/">
+              <img className={classes.headerImage} src={Logo} />
+            </Link>
           </Typography>
           {/* {localStorage.token ? <Button color="inherit" onClick={this.handleLogout}>Logout</Button> : <div></div>} */}
+          {this.props.token ? (
+            <div>
+              <IconButton color="inherit">
+                <Badge badgeContent={this.messageAlert} color="secondary">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
 
+              <IconButton color="inherit">
+                <Badge
+                  badgeContent={this.notificationAlert}
+                  color="secondary"
+                  aria-owns={this.state.open ? 'message-list-grow' : undefined}
+                  aria-haspopup="true"
+                  onClick={(e) => this.handleToggle(e)}>
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
 
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-
-
-          <IconButton color="inherit" >
-            <Badge badgeContent={17} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-
-
-
-          <IconButton
-            // aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-            aria-haspopup="true"
-            // onClick={this.handleProfileMenuOpen}
-            color="inherit"
-            buttonRef={node => {
-              this.anchorEl = node;
-            }}
-            aria-owns={this.state.open ? 'menu-list-grow' : undefined}
-            aria-haspopup="true"
-            onClick={e => this.handleToggle(e)}
-          >
-            <Avatar alt="Remy Sharp" src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg" className={classes.avatar} onClick={this.handleToggle} />
-            {/* <AccountCircle /> */}
-          </IconButton>
-
+              <IconButton // aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                aria-haspopup="true" // onClick={this.handleProfileMenuOpen}
+                color="inherit"
+                buttonRef={(node) => {
+                  this.anchorEl = node;
+                }}
+                aria-owns={this.state.open ? 'menu-list-grow' : undefined}
+                aria-haspopup="true"
+                onClick={(e) => this.handleToggle(e)}>
+                <Avatar
+                  alt="Remy Sharp"
+                  src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg"
+                  className={classes.avatar}
+                  onClick={this.handleToggle}
+                />
+                {/* <AccountCircle /> */}
+              </IconButton>
+            </div>
+          ) : (
+            ''
+          )}
 
           <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
             {({ TransitionProps, placement }) => (
               <Grow
                 {...TransitionProps}
                 id="menu-list-grow"
-                style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom', background: 'solid' }}
-              >
-                <Paper >
+                style={{
+                  transformOrigin:
+                    placement === 'bottom' ? 'center top' : 'center bottom',
+                  background: 'solid'
+                }}>
+                <Paper>
                   <ClickAwayListener onClickAway={this.handleClose}>
                     <MenuList>
                       <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                       <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                      <MenuItem onClick={() => {
-                        this.handleClose()
-                        this.props.logout()
-                      }}>Logout</MenuItem>
+
+                      <MenuItem
+                        onClick={() => {
+                          this.handleClose();
+                          this.props.logout();
+                        }}>
+                        Logout
+                      </MenuItem>
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
@@ -146,29 +177,52 @@ class Navbar extends Component {
             )}
           </Popper>
 
-
+          <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                id="message-list-grow"
+                style={{
+                  transformOrigin:
+                    placement === 'bottom' ? 'center top' : 'center bottom',
+                  background: 'solid'
+                }}>
+                <Paper>
+                  <ClickAwayListener onClickAway={this.handleClose}>
+                    <MenuList>
+                      <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
         </Toolbar>
-      </AppBar >
-
-    )
+      </AppBar>
+    );
   }
 }
 Navbar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     logout: () => {
-      dispatch({ type: 'LOGOUT_USER' })
+      dispatch({ type: 'LOGOUT_USER' });
     }
-  }
+  };
 }
 
 function mapStateToProps(state) {
   return {
     token: state.token
-  }
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Navbar))
+// const SimpleModalWrapped = withStyles(styles)(Navbar);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Navbar));

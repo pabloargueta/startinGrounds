@@ -12,20 +12,17 @@ class User < ApplicationRecord
     accepts_nested_attributes_for :preferences
 
     before_create do | user |
-        if user.profile_answers_attributes.length == 0
-            user.profile_attributes = ProfileQuestion.all.map do | question |
-                {
-                    profile_question: question,
-                    importance: 1
-                }
-            end
+        ProfileQuestion.all.each do | question |
+            user.preferences.new({
+                profile_question: question,
+                importance: 1
+            })
         end
-        if user.preferences_attributes.length == 0
-            user.preferences_attributes = ProfileQuestion.all.map do | question |
-                {
-                  profile_question: question
-                }
-              end
+        
+        ProfileQuestion.all.each do | question |
+            user.profile_answers.new({
+                profile_question: question
+            })
         end
     end
 

@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import NavBar from './NavBar'
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
+import NavBar from './NavBar';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch
+} from 'react-router-dom';
 
-
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import LogIn from './LogIn';
 import SignUp from './SignUp';
-import Profile from './Profile'
-import PrivateRoute from './PrivateRoute'
-import ProfileQuestionForm from './ProfileQuestionForm'
-
+import Profile from './Profile';
+import PrivateRoute from './PrivateRoute';
+import Billing from './SignUpTabs/Billing';
 
 class App extends Component {
-
   render() {
     return (
       <div>
@@ -21,31 +23,38 @@ class App extends Component {
           <Switch>
             <Route path="/login" component={LogIn} />
             <Route path="/signup" component={SignUp} />
-            <Route path="/test" component={ProfileQuestionForm} />
+            <Route path="/test" component={Billing} />
             <PrivateRoute path="/profile" component={Profile} />
-            <Route path="/" render={() => <Redirect to={{
-              pathname: '/profile'
-            }} />} />
+            <Route
+              path="/"
+              render={() => (
+                <Redirect
+                  to={{
+                    pathname: '/profile'
+                  }}
+                />
+              )}
+            />
           </Switch>
         </Router>
       </div>
-    )
+    );
   }
 }
-
 
 function mapStateToProps(state) {
   return {
     state: state.testStatels
-
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateProduct: (data) => dispatch({ type: "", payload: data })
-  }
+    updateProduct: (data) => dispatch({ type: '', payload: data })
+  };
 }
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

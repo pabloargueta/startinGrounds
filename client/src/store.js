@@ -3,8 +3,7 @@ import { createStore } from 'redux';
 
 const defaultState = {
   token: localStorage.token || '',
-  profileQuestions: [],
-  signUpStep: localStorage.signUpStep || 1
+  profileQuestions: []
 };
 
 function reducer(state = defaultState, action) {
@@ -15,16 +14,17 @@ function reducer(state = defaultState, action) {
 
     case 'CREATE_USER':
       post('/users', action.payload).then((user) => {
-        store.dispatch({
-          type: 'RECIEVE_USER',
-          payload: user
-        })
+        post('/login', {
+          username: action.payload.username,
+          password: action.payload.password
+        }).then((auth) => {
+          store.dispatch({
+            type: 'LOGIN_USER',
+            payload: auth
+          });
+        });
       });
       return state;
-
-    case 'RECIEVE_USER':
-      localStorage.setItem('signUpStep', 2)
-      return { ...state, user: action.payload.user, signUpStep: 2}
 
     case 'AUTHENTICATE_USER':
       post('/login', action.payload).then((auth) => {
@@ -37,14 +37,17 @@ function reducer(state = defaultState, action) {
 
     case 'LOGIN_USER':
       localStorage.setItem('token', action.payload.jwt);
-      return { ...state, token: action.payload.jwt };
+      return {
+        ...state,
+        token: action.payload.jwt ? action.payload.jwt : false
+      };
 
     case 'LOGOUT_USER':
       localStorage.clear();
       return { ...state, token: '' };
 
     case 'FETCH_PROFILE_QUESTIONS':
-      get('/profile_questions').then((profile_questions) => {
+      get('/profile_answers').then((profile_questions) => {
         store.dispatch({
           type: 'RECIEVE_PROFILE_QUESTIONS',
           payload: profile_questions

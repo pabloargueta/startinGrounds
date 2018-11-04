@@ -21,8 +21,10 @@ class Preference < ApplicationRecord
       value = value ? -value : value
     when "textual"
       value = 0
-    when "datetime"
-      value = 0 # Add date logic here
+    when "integer"
+      value = answer.selection.value - self.selection.value
+      value = value ? -value : value
+      # Add date logic here later for datetime data type
     end
     value * self.importance
   end

@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import {  BrowserRouter, Switch, Route, Redirect, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core';
-import ConditionalRoute from './CondtionalRoute'
-import GeneralTab from './SignUpTabs/GeneralTab.js'
-import ProfileTab from './SignUpTabs/ProfileTab.js'
+// import { withStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
+import PrivateRoute from './PrivateRoute';
+import GeneralTab from './SignUpTabs/GeneralTab.js';
+import Billing from './SignUpTabs/Billing.js';
+import ProfileTab from './SignUpTabs/ProfileTab.js';
 import Button from '@material-ui/core/Button';
-
 
 const styles = (theme) => ({
   layout: {
@@ -46,7 +47,6 @@ const styles = (theme) => ({
 });
 
 class SignUp extends Component {
-
   render() {
     const { classes } = this.props;
     return (
@@ -65,37 +65,36 @@ class SignUp extends Component {
             </Typography>
             <BrowserRouter>
               <Switch>
-              <Route path={`${this.props.match.path}/1`} component={GeneralTab}/>
-              <ConditionalRoute path={`${this.props.match.path}/2`} condition={this.props.signUpStep >= 2} component={ProfileTab}/>
-              <Route path='/' render={() => (
-                <Redirect to={{
-                  pathname:`${this.props.match.path}/1`
-                }}/>
-              )} />
+                <Route
+                  path={`${this.props.match.path}/1`}
+                  component={GeneralTab}
+                />
+                {/* <PrivateRoute
+                  path={`${this.props.match.path}/2`}
+                  component={Billing}
+                /> */}
+                <PrivateRoute
+                  path={`${this.props.match.path}/2`}
+                  component={ProfileTab}
+                />
+                <Route
+                  path="/"
+                  render={() => (
+                    <Redirect
+                      to={{
+                        pathname: `${this.props.match.path}/1`
+                      }}
+                    />
+                  )}
+                />
               </Switch>
             </BrowserRouter>
-            <Link
-                style={{ color: 'white', textDecoration: 'none' }}
-                to="/login">
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  style={{
-                    background:
-                      'linear-gradient(45deg, #00bcd4 30%, #1a237e 90%)'
-                  }}>
-                  Log in instead
-                </Button>
-              </Link>
           </Paper>
         </main>
       </div>
     );
   }
 }
-
 
 function mapStateToProps(state) {
   return {
@@ -104,9 +103,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    
-  };
+  return {};
 }
 
 export default connect(

@@ -16,8 +16,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Markdown from './Markdown';
 
-
-const styles = theme => ({
+const styles = (theme) => ({
   layout: {
     width: 'auto',
     marginLeft: theme.spacing.unit * 3,
@@ -25,85 +24,81 @@ const styles = theme => ({
     [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
       width: 1100,
       marginLeft: 'auto',
-      marginRight: 'auto',
-    },
+      marginRight: 'auto'
+    }
   },
   toolbarMain: {
-    borderBottom: `1px solid ${theme.palette.grey[300]}`,
+    borderBottom: `1px solid ${theme.palette.grey[300]}`
   },
   toolbarTitle: {
-    flex: 1,
+    flex: 1
   },
   toolbarSecondary: {
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   mainFeaturedPost: {
     backgroundColor: theme.palette.grey[800],
     color: theme.palette.common.white,
-    marginBottom: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit * 4
   },
   mainFeaturedPostContent: {
     padding: `${theme.spacing.unit * 6}px`,
     [theme.breakpoints.up('md')]: {
-      paddingRight: 0,
-    },
+      paddingRight: 0
+    }
   },
   mainGrid: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 3
   },
   card: {
-    display: 'flex',
+    display: 'flex'
   },
   cardDetails: {
-    flex: 1,
+    flex: 1
   },
   cardMedia: {
-    width: 160,
+    width: 160
   },
   markdown: {
-    padding: `${theme.spacing.unit * 3}px 0`,
+    padding: `${theme.spacing.unit * 3}px 0`
   },
   sidebarAboutBox: {
     padding: theme.spacing.unit * 2,
-    backgroundColor: theme.palette.grey[200],
+    backgroundColor: theme.palette.grey[200]
   },
   sidebarSection: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 3
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
     marginTop: theme.spacing.unit * 8,
-    padding: `${theme.spacing.unit * 6}px 0`,
-  },
+    padding: `${theme.spacing.unit * 6}px 0`
+  }
 });
 
-const sections = [
-  'SECTION1',
-  'SECTION2',
-  'SECTOIN3',
-  'SECTOIN4',
-  'SECTOIN5',
-  'SECTOIN6',
-  'SECTOIN7',
-  'SECTOIN8',
-  'SECTOIN9',
-
-
-];
+// const sections = [
+// 'SECTION1',
+// 'SECTION2',
+// 'SECTOIN3'
+// 'SECTOIN4',
+// 'SECTOIN5',
+// 'SECTOIN6',
+// 'SECTOIN7',
+// 'SECTOIN8',
+// 'SECTOIN9',
+// ];
 
 const featuredPosts = [
   {
     title: 'IM A TITLE',
     date: 'A DATE?',
-    description:
-      'ADD DESCRIPTIVE TEXT',
+    description: 'ADD DESCRIPTIVE TEXT'
   },
   {
     title: 'IM ALSO A TITLE',
     date: 'ANOTHER DATE?',
-    description:
-      'ADD DESCRIPTIVE TEXT',
-  },
+    description: 'ADD DESCRIPTIVE TEXT'
+  }
 ];
 
 const posts = [1, 2, 3];
@@ -111,16 +106,15 @@ const posts = [1, 2, 3];
 const archives = [
   'ARCHIVE1',
   'ARCHIVE2',
-  'ARCHIVE3',
-  'ARCHIVE4',
-  'ARCHIVE5',
-  'ARCHIVE6',
-  'ARCHIVE7',
-  'ARCHIVE8',
-
+  'ARCHIVE3'
+  // 'ARCHIVE4',
+  // 'ARCHIVE5',
+  // 'ARCHIVE6',
+  // 'ARCHIVE7',
+  // 'ARCHIVE8',
 ];
 
-const social = ['LINK?', 'LINK?', 'LINK?'];
+// const social = ['LINK?', 'LINK?', 'LINK?'];
 
 function Blog(props) {
   const { classes } = props;
@@ -129,7 +123,6 @@ function Blog(props) {
     <React.Fragment>
       <CssBaseline />
       <div className={classes.layout}>
-
         <Toolbar className={classes.toolbarMain}>
           <Button size="small">LINK!?</Button>
 
@@ -139,8 +132,7 @@ function Blog(props) {
             color="inherit"
             align="center"
             noWrap
-            className={classes.toolbarTitle}
-          >
+            className={classes.toolbarTitle}>
             Profile
           </Typography>
 
@@ -151,18 +143,15 @@ function Blog(props) {
           <Button variant="outlined" size="small">
             BUTTON I DO STUFF
           </Button>
-
         </Toolbar>
 
-
-        <Toolbar variant="dense" className={classes.toolbarSecondary}>
-          {sections.map(section => (
+        {/* <Toolbar variant="dense" className={classes.toolbarSecondary}> */}
+        {/* {sections.map((section) => (
             <Typography color="inherit" noWrap key={section}>
               {section}
             </Typography>
-          ))}
-        </Toolbar>
-
+          ))} */}
+        {/* </Toolbar> */}
 
         <main>
           {/* BIG SECTION */}
@@ -170,17 +159,16 @@ function Blog(props) {
             <Grid container>
               <Grid item md={6}>
                 <div className={classes.mainFeaturedPostContent}>
-                  <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+                  <Typography
+                    component="h1"
+                    variant="h3"
+                    color="inherit"
+                    gutterBottom>
                     BIG LETTERS FOR SOMETHING
                   </Typography>
                   <Typography variant="h5" color="inherit" paragraph>
-                    LINES AND
-                    LINES AND
-                    LINES AND
-                    LINES AND
-                    LINES AND
-                    LINES OF INFORMATION!
-
+                    LINES AND LINES AND LINES AND LINES AND LINES AND LINES OF
+                    INFORMATION!
                   </Typography>
                 </div>
               </Grid>
@@ -188,11 +176,9 @@ function Blog(props) {
           </Paper>
           {/* End main */}
 
-
-
           {/* Sub feature */}
           <Grid container spacing={40} className={classes.cardGrid}>
-            {featuredPosts.map(post => (
+            {featuredPosts.map((post) => (
               <Grid item key={post.title} xs={12} md={6}>
                 <Card className={classes.card}>
                   <div className={classes.cardDetails}>
@@ -224,7 +210,6 @@ function Blog(props) {
           </Grid>
           {/* End sub feature */}
 
-
           <Grid container spacing={40} className={classes.mainGrid}>
             {/* Main content */}
             <Grid item xs={12} md={8}>
@@ -235,56 +220,75 @@ function Blog(props) {
             </Grid>
             {/* End main*/}
 
-
             {/* Sidebar */}
             <Grid item xs={12} md={4}>
+              <Typography
+                variant="h6"
+                gutterBottom
+                className={classes.sidebarSection}>
+                My summary 1
+              </Typography>
+
+              <Typography
+                variant="h6"
+                gutterBottom
+                className={classes.sidebarSection}>
+                My summary 2
+              </Typography>
+
+              <Typography
+                variant="h6"
+                gutterBottom
+                className={classes.sidebarSection}>
+                My summary 3
+              </Typography>
+
               <Paper elevation={0} className={classes.sidebarAboutBox}>
                 <Typography variant="h6" gutterBottom>
-                  TYPOGRAPHY I DO STUFF
+                  My Preferences
                 </Typography>
-                <Typography>
-                  MORE WORDS AND WORDS AND WORDS AND WORDS AND WORDS AND WORDS
-                </Typography>
+                <Typography>Bring in Preferences info</Typography>
               </Paper>
-              <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
-                TYPOGRAPHY I DO STUFF
-              </Typography>
-              {archives.map(archive => (
+
+              {archives.map((archive) => (
                 <Typography key={archive}>{archive}</Typography>
               ))}
-              <Typography variant="h6" gutterBottom className={classes.sidebarSection}>
-                SIDE BAR SECTION
+              <Typography
+                variant="h6"
+                gutterBottom
+                className={classes.sidebarSection}>
+                SIDE BAR SECTION of ARCHIVES
               </Typography>
-              {social.map(network => (
+              {/* {social.map((network) => (
                 <Typography key={network}>{network}</Typography>
-              ))}
+              ) */}
+              {/* )} */}
             </Grid>
             {/* End sidebar */}
-
-
           </Grid>
         </main>
       </div>
-
 
       {/* Footer */}
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
           Footer
         </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
+        <Typography
+          variant="subtitle1"
+          align="center"
+          color="textSecondary"
+          component="p">
           FOOTER Something here to give the footer a purpose! FOOTER
         </Typography>
       </footer>
       {/* End footer */}
-
-
     </React.Fragment>
   );
 }
 
 Blog.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Blog);
